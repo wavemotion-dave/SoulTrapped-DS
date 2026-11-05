@@ -15,7 +15,7 @@ Place this file exactly named "Soul Trapped.rom" in the /roms folder on your SD 
 
 If you launch the emulator and get no warning screens, you will be greated with the main menu as such:
 
-![Main Menu](arm9/gfx_data/mainmenu.png)
+![Main Menu](images/mainmenu.png)
 
 Assuming you have nothing to configure, just press the PLAY icon.
 

@@ -13,11 +13,11 @@ endif
 
 include $(DEVKITARM)/ds_rules
 
-export TARGET		:=	SoulTrappedDS
+export TARGET		:=	SoulTrapped-DS
 export TOPDIR		:=	$(CURDIR)
 export VERSION		:=  1.0
 
-ICON 		:= -b $(CURDIR)/logo.bmp "SoulTrappedDS $(VERSION);wavemotion-dave;https://github.com/wavemotion-dave/SoulTrappedDS" 
+ICON 		:= -b $(CURDIR)/logo.bmp "SoulTrapped-DS $(VERSION);wavemotion-dave;https://github.com/wavemotion-dave/SoulTrapped-DS" 
 
 .PHONY: $(TARGET).arm7 $(TARGET).arm9
 
