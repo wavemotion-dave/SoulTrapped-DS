@@ -6,7 +6,7 @@
 // royalty provided this copyright notice is used and wavemotion-dave and
 // Marat Fayzullin (fMSX core) are thanked profusely.
 //
-// The SoulTrappedDS emulator is offered as-is, without any warranty. Please see readme.md
+// The Hachibitto emulator is offered as-is, without any warranty. Please see readme.md
 // =====================================================================================
 
 //

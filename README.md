@@ -60,5 +60,8 @@ can be used anytime.
 Version History :
 -----------------------
 
+Version 1.0a - 16-Nov-2026 by wavemotion-dave
+* Revised sound driver to improve fidelity.
+
 Version 1.0 - 06-Nov-2026 by wavemotion-dave
 * First major version released.

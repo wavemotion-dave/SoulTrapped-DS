@@ -6,7 +6,7 @@
 // royalty provided this copyright notice is used and wavemotion-dave and
 // Marat Fayzullin (fMSX core) are thanked profusely.
 //
-// The SoulTrappedDS emulator is offered as-is, without any warranty. Please see readme.md
+// The Hachibitto emulator is offered as-is, without any warranty. Please see readme.md
 // =====================================================================================
 
 //  msx_music.c
@@ -636,7 +636,7 @@ static inline void YM_PrecomputeFMRates(YM *chip, int ch)
        sustain level while the key is down. To experiment, use:
            p->susMod = inst->egTypeMod ? 0 : p->rrMod;
            p->susCar = inst->egTypeCar ? 0 : p->rrCar;                       */
-#define YM_EGTYP0_SHIFT 3  // 1 = half the RR speed; raise to fade slower
+#define YM_EGTYP0_SHIFT 2  // 1 = half the RR speed; raise to fade slower
         p->susMod = 0;
         p->susCar = (chip->channels[ch].instrument && !inst->egTypeCar)
                     ? (p->rrCar >> YM_EGTYP0_SHIFT) : 0;
@@ -839,7 +839,12 @@ ITCM_CODE static inline s32 YM_RenderChannel2FM(YM_Oscillator *osc, u8 keyOn, in
     osc->phase += pi;
 
     // Apply the configured YM output level after channel-volume attenuation.
-    return carrier >> (13 - myConfig.ymScale);   // same level as (>>14) then << (ymScale+1)
+    // Peak per channel is about +/-8.26M (127 * 255 * 255) before this shift.
+    // (>>12) is +6 dB over the old (>>13), restoring loudness lost when the
+    // sustain-level table and percussive decay were made more accurate.
+    // Equivalent to (>>14) then << (ymScale+2). If dense chords crackle at high
+    // ymScale, check the final mix for overflow or go back to (>>13).
+    return carrier >> (12 - myConfig.ymScale);
 }
 
 // -------------------------------------------------------------------------
@@ -1074,7 +1079,7 @@ ITCM_CODE void YMMixer(int len, s16 *dest, YM *chip)
         chip->outputFilterState = sample;
 
         /* Mix one synthesized sample into the existing output buffer. */
-        s32 mixed = ((s32)dest[i] + 32768) + sample;
+        s32 mixed = ((s32)dest[i]) + sample;
 
         // Clamp final mixed result...
         if (mixed > 32767) mixed = 32767;
